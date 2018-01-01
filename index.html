@@ -64,7 +64,101 @@
         <div data-silex-type="container" class="editable-style silex-element-content silex-id-1478366444112-0 silex-container-content container-element prevent-draggable website-width" data-silex-id="silex-id-1478366444112-0"></div>
     </div>
     <div data-silex-type="container" class="prevent-draggable container-element editable-style silex-id-1474394621033-3 section-element" data-silex-id="silex-id-1474394621033-3" style="">
-        <div data-silex-type="container" class="editable-style silex-element-content silex-id-1474394621032-2 silex-container-content container-element prevent-draggable website-width" data-silex-id="silex-id-1474394621032-2"></div>
+        <div data-silex-type="container" class="editable-style silex-element-content silex-id-1474394621032-2 silex-container-content container-element prevent-draggable website-width" data-silex-id="silex-id-1474394621032-2">
+            <div data-silex-type="html" class="editable-style silex-id-1514772740842-0 html-element" data-silex-id="silex-id-1514772740842-0" style="">
+                <div class="silex-element-content">
+
+                    <title>XMC4700 RelaxKit Web Server Demo - Modified</title>
+                    <script type="text/javascript" src="assets/smoothie.min.js"></script>
+                    <script type="text/javascript" src="assets/jquery.min.js"></script>
+                    <style>
+                        html * {
+                            font-family: Verdana !important;
+                        }
+                        
+                        p {
+                            text-align: center
+                        }
+                    </style>
+
+
+
+                    <h1 style="text-align:center" align="center"><img id="logo" src="assets/img_sics.gif"></h1>
+                    <h1 style="text-align:center" align="center">XMC4700 RelaxKit Web Server Demo - Modified</h1>
+                    <h3 style="text-align:center" align="center">Realtime Data - Press buttons in the kit</h3>
+
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <canvas id="mycanvas" width="600" height="300"></canvas>
+                                </td>
+                                <td>
+                                    <p style="color:red">x</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+                    <table align="center">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <canvas id="mycanvas2" width="600" height="300"></canvas>
+                                </td>
+                                <td>
+                                    <p style="color:red">x</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <script type="text/javascript">
+                        var smoothie = new SmoothieChart({scaleSmoothing:0.01,maxValue:200,minValue:-200});
+                          smoothie.streamTo(document.getElementById("mycanvas"), 100);      
+                        
+                          // Data
+                          var linex = new TimeSeries();
+                          
+                          setInterval(function() {
+                            $.get("data.cgi", function(data) {
+                              linex.append(new Date().getTime(), parseInt(data.bx));
+                            }, "json");
+                          }, 100);              
+                    
+                          smoothie.addTimeSeries(linex, { strokeStyle:'rgb(255, 0, 0)', lineWidth:3 });
+                    
+                    	  var smoothie2 = new SmoothieChart({scaleSmoothing:0.01,maxValue:200,minValue:-200});
+                          smoothie2.streamTo(document.getElementById("mycanvas2"), 100);      
+                        
+                          // Data
+                          var linex2 = new TimeSeries();
+                          
+                          setInterval(function() {
+                            $.get("data.cgi", function(data) {
+                              linex2.append(new Date().getTime(), parseInt(data.by));
+                            }, "json");
+                          }, 100);              
+                    
+                          smoothie2.addTimeSeries(linex2, { strokeStyle:'rgb(255, 0, 0)', lineWidth:3 });
+                    </script>
+
+                    <p id="bxValue"></p>
+
+                    <script type="text/javascript">
+                        setInterval(function() {
+                    			$.get("data.cgi", function(data) {
+                    			document.getElementById("bxValue").innerHTML = parseInt(data.bx);
+                            }, "json");
+                          }, 1000);
+                    </script>
+
+
+
+                </div>
+            </div>
+        </div>
     </div>
     <div data-silex-type="container" class="prevent-draggable container-element editable-style silex-id-1478366450713-3 section-element" data-silex-id="silex-id-1478366450713-3" style="">
         <div data-silex-type="container" class="editable-style silex-element-content silex-id-1478366450713-2 silex-container-content container-element prevent-draggable website-width" data-silex-id="silex-id-1478366450713-2">
